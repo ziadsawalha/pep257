@@ -220,13 +220,13 @@ class Parser(object):
         if self.current.value != '=':
             raise AllError('Could not evaluate contents of __all__. ')
         self.consume(tk.OP)
-        if self.current.value != '(':
+        if self.current.value not in '([':
             raise AllError('Could not evaluate contents of __all__. ')
         self.consume(tk.OP)
         s = '('
         if self.current.kind != tk.STRING:
             raise AllError('Could not evaluate contents of __all__. ')
-        while self.current.value != ')':
+        while self.current.value not in ')]':
             s += self.current.value
             self.stream.move()
         s += ')'
