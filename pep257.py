@@ -588,24 +588,6 @@ class PEP257Checker(object):
                     return Error('D207: Docstring is under-indented')
 
     @check_for(Definition)
-    def check_blank_after_last_paragraph(self, definition, docstring):
-        """D209: Multi-line docstring should end with 1 blank line.
-
-        The BDFL recommends inserting a blank line between the last
-        paragraph in a multi-line docstring and its closing quotes,
-        placing the closing quotes on a line by themselves.
-
-        """
-        if docstring:
-            lines = [l for l in eval(docstring).split('\n') if not is_blank(l)]
-            if len(lines) > 1:
-                lines = eval(docstring).split('\n')
-                blanks = len(list(takewhile(is_blank, reversed(lines))))
-                if blanks != 2:
-                    return Error('D209: Multi-line docstring should end with '
-                                 '1 blank line, found %s' % max(0, blanks - 1))
-
-    @check_for(Definition)
     def check_triple_double_quotes(self, definition, docstring):
         r'''D300: Use """triple double quotes""".
 
